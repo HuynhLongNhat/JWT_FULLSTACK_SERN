@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import mysql from "mysql2/promise";
 import bluebird from "bluebird";
+import db from "../models/index.js";
 //hash password
 const salt = bcrypt.genSaltSync(10);
 
@@ -9,22 +10,16 @@ const hashUserPassword = (password) => {
 };
 
 const createNewUser = async (email, password, username) => {
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "jwt",
-    Promise: bluebird,
-  });
+  //dung ORM SEQUELIZE_CLI
   let hashPassword = hashUserPassword(password);
-
   try {
-    const [row, fields] = await connection.execute(
-      "INSERT INTO users (email , password, username) VALUES (? , ? , ? )",
-      [email, hashPassword, username]
-    );
-    return row;
+    await db.User.create({
+      username: username,
+      email: email,
+      password: hashPassword,
+    });
   } catch (error) {
-    console.log("check error:", error);
+    console.log("Check error :", error);
   }
 };
 
