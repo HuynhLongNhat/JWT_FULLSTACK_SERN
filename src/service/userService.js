@@ -25,75 +25,39 @@ const createNewUser = async (email, password, username) => {
 
 const getUserList = async () => {
   let users = [];
-
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "jwt",
-    Promise: bluebird,
-  });
-  try {
-    const [row, fields] = await connection.execute("Select * from users");
-    return row;
-  } catch (error) {
-    console.log("check error:", error);
-  }
+  users = await db.User.findAll();
+  return users;
 };
 const deleteUser = async (id) => {
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "jwt",
-    Promise: bluebird,
+  await db.User.destroy({
+    where: {
+      id: id,
+    },
   });
-
-  try {
-    const [row, fields] = await connection.execute(
-      "Delete from  users where id =? ",
-      [id]
-    );
-    return row;
-  } catch (error) {
-    console.log("check error:", error);
-  }
 };
 
 const getUserById = async (id) => {
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "jwt",
-    Promise: bluebird,
+  let user = {};
+  user = await db.User.findOne({
+    where: {
+      id: id,
+    },
   });
-
-  try {
-    const [row, fields] = await connection.execute(
-      "Select * from  users where id =? ",
-      [id]
-    );
-    return row;
-  } catch (error) {
-    console.log("check error:", error);
-  }
+  return user;
 };
 
 const updateUserInfor = async (email, username, id) => {
-  const connection = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "jwt",
-    Promise: bluebird,
-  });
-
-  try {
-    const [row, fields] = await connection.execute(
-      "Update  users  set email =? , username = ? where id=?",
-      [email, username, id]
-    );
-    return row;
-  } catch (error) {
-    console.log("check error:", error);
-  }
+  await db.User.update(
+    {
+      email: email,
+      username: username,
+    },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
 };
 module.exports = {
   createNewUser,
