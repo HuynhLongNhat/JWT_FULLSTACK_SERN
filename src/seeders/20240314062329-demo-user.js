@@ -8,22 +8,11 @@ module.exports = {
         {
           username: "John Doe",
           password: "123456",
-          email: "Jonh@gmail.com",
-        },
-        {
-          username: "John1 Doe",
-          password: "123456",
-          email: "Jonh2@gmail.com",
-        },
-        {
-          username: "John2 Doe",
-          password: "123456",
-          email: "Jonh@gmail.com",
-        },
-        {
-          username: "John3 Doe",
-          password: "123456",
-          email: "Jonh3@gmail.com",
+          email: "test@gmail.com",
+          sex: "male",
+          phone: "123456",
+          address: "Quy Nhon",
+          groupId: 1,
         },
       ],
       {}
