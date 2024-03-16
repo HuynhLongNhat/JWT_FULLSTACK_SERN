@@ -1,12 +1,5 @@
 import apiService from "../service/apiService";
 
-const testAPI = (req, res) => {
-  return res.status(200).json({
-    message: "200",
-    data: "test api",
-  });
-};
-
 const handleRegister = async (req, res) => {
   try {
     if (
@@ -43,7 +36,32 @@ const handleRegister = async (req, res) => {
     });
   }
 };
+
+const handleLogin = async (req, res) => {
+  try {
+    if (!req.body.valueLogin || !req.body.password) {
+      return res.status(200).json({
+        EM: "Missing required parameters",
+        EC: "1",
+        DT: "",
+      });
+    }
+    let data = await apiService.handleUserLogin(req.body);
+    return res.status(200).json({
+      EM: data.EM,
+      EC: data.EC,
+      DT: data.DT,
+    });
+  } catch (error) {
+    console.log("check error ", error);
+    return res.status(404).json({
+      EM: "Error from server",
+      EC: "-1",
+      DT: "",
+    });
+  }
+};
 module.exports = {
-  testAPI,
   handleRegister,
+  handleLogin,
 };

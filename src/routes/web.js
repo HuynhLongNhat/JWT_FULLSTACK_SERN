@@ -20,8 +20,9 @@ const initApiRoutes = (app) => {
   router.get("/update-user/:id", homeController.getUpdateUserPage);
   router.post("/user/update-user", homeController.handleUpdateUser);
 
-  router.get("/test-api", apiController.testAPI);
   router.post("/register", apiController.handleRegister);
+  router.post("/login", apiController.handleLogin);
+
   return app.use("/api/v1/", router);
 };
 
