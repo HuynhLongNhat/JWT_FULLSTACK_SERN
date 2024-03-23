@@ -86,11 +86,9 @@ const handleUserLogin = async (data) => {
     });
 
     if (user) {
-      console.log("found user with email or phone number", data.valueLogin);
       let isCorrectPassword = checkPassword(data.password, user.password);
 
       if (isCorrectPassword === true) {
-        console.log("found user with email and password");
         return {
           EM: "OK",
           EC: 0,

@@ -1,10 +1,12 @@
 import express from "express";
 import configViewEngine from "./config/viewEngine";
-import initApiRoutes from "./routes/web";
+import initApiRoutes from "./routes/api";
+import initWebRoutes from "./routes/web";
 require("dotenv").config();
 import bodyParser from "body-parser";
 import connection from "./config/connectDB";
 import { configCors } from "./config/cors";
+
 const app = express();
 const PORT = process.env.PORT || 8888;
 
@@ -21,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 connection();
 // init web routes;
 initApiRoutes(app);
+initWebRoutes(app);
 
 app.listen(PORT, () => {
   console.log("jwt backend is running on the port =  " + PORT);
