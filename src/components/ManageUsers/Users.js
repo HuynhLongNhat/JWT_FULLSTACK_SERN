@@ -4,6 +4,7 @@ import ReactPaginate from "react-paginate";
 import { deleteUser } from "../../service/UserService";
 import { toast } from "react-toastify";
 import ModalDelete from "./ModalDelete";
+import ModalUser from "./ModalUser";
 function Users(props) {
   const [listUsers, setListUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,6 +12,7 @@ function Users(props) {
   const [totalPages, setTotalPage] = useState(0);
   const [isShowModalDelete, setShowModalDelete] = useState(false);
   const [dataModal, setDataModal] = useState({});
+  const [isShowModalUser, setShowModalUser] = useState(false);
   useEffect(() => {
     fetchUser();
   }, [currentPage]);
@@ -46,6 +48,10 @@ function Users(props) {
     setDataModal({});
     setShowModalDelete(!isShowModalDelete);
   };
+
+  const toggleShowModalUser = () => {
+    setShowModalUser(!isShowModalUser);
+  };
   return (
     <>
       <div className="container">
@@ -54,9 +60,15 @@ function Users(props) {
             <div className="title">
               <h3>Table users</h3>
             </div>
-            <div className="actions">
-              <button className="btn btn-success">Refresh</button>
-              <button className="btn btn-primary"> Add new user</button>
+            <div className="actions my-3">
+              <button className="btn btn-success mx-3">Refresh</button>
+              <button
+                className="btn btn-primary"
+                onClick={() => toggleShowModalUser()}
+              >
+                {" "}
+                Add new user
+              </button>
             </div>
           </div>
 
@@ -141,6 +153,7 @@ function Users(props) {
         dataModal={dataModal}
         confirmDeleteUser={confirmDeleteUser}
       ></ModalDelete>
+      <ModalUser show={isShowModalUser} title="Create new user!"></ModalUser>
     </>
   );
 }
