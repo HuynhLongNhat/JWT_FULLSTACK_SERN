@@ -8,7 +8,7 @@ import ModalUser from "./ModalUser";
 function Users(props) {
   const [listUsers, setListUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentLimit, setCurrentLimit] = useState(6);
+  const [currentLimit, setCurrentLimit] = useState(30);
   const [totalPages, setTotalPage] = useState(0);
   const [isShowModalDelete, setShowModalDelete] = useState(false);
   const [dataModal, setDataModal] = useState({});
@@ -153,7 +153,12 @@ function Users(props) {
         dataModal={dataModal}
         confirmDeleteUser={confirmDeleteUser}
       ></ModalDelete>
-      <ModalUser show={isShowModalUser} title="Create new user!"></ModalUser>
+      <ModalUser
+        show={isShowModalUser}
+        title="Create new user!"
+        toggleShowModalUser={toggleShowModalUser}
+        fetchUser={fetchUser}
+      ></ModalUser>
     </>
   );
 }
