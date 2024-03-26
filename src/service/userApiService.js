@@ -62,9 +62,29 @@ const getUserWithPagination = async (page, limit) => {
 };
 const createNewUser = async (data) => {
   try {
-    let user = await db.User.create({});
+    let user = await db.User.create({
+      username: data.userName,
+      password: data.password,
+      phone: data.phoneNumber,
+      email: data.email,
+      address: data.address,
+      sex: data.sex,
+      groupId: data.groupId,
+    });
+    if (user) {
+      return {
+        EM: " create new user success!",
+        EC: 0,
+        DT: [],
+      };
+    }
   } catch (error) {
     console.log("check error :", error);
+    return {
+      EM: "Error from server",
+      EC: -1,
+      DT: "",
+    };
   }
 };
 const updateUser = async (data) => {
